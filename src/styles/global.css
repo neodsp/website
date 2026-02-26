@@ -394,6 +394,12 @@ a:hover {
     padding: 0.6rem 1rem;
   }
 
+  .code-window pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-x: hidden;
+  }
+
   .code-window code {
     font-size: 0.75rem !important;
   }
