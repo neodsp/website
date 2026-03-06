@@ -63,9 +63,9 @@ println!("Samples: {}", audio.samples_interleaved.len());`,
     filename: "main.rs",
     code: `use audio_io::*;
 
-let device = AudioHost::new()?;
+let host = AudioHost::new()?;
 
-device.start(
+host.start(
     Config {
         num_input_channels: 2,
         num_output_channels: 2,
