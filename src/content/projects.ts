@@ -56,14 +56,14 @@ println!("Samples: {}", audio.samples_interleaved.len());`,
     stars: 7,
   },
   {
-    name: "audio-device",
+    name: "audio-io",
     description:
       "Backend-agnostic library for audio I/O devices — one API for JUCE, CPAL, and RtAudio.",
     tags: ["multi-backend", "real-time", "callback API"],
     filename: "main.rs",
-    code: `use audio_device::prelude::*;
+    code: `use audio_io::*;
 
-let device = AudioDevice::new()?;
+let device = AudioHost::new()?;
 
 device.start(
     Config {
@@ -77,9 +77,9 @@ device.start(
         output.copy_from_block(&input);
     },
 )?;`,
-    github: "https://github.com/neodsp/audio-device",
-    crates: "https://crates.io/crates/audio-device",
-    docs: "https://docs.rs/audio-device",
+    github: "https://github.com/neodsp/audio-io",
+    crates: "https://crates.io/crates/audio-io",
+    docs: "https://docs.rs/audio-io",
     stars: 1,
   },
   {
