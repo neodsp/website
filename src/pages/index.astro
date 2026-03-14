@@ -9,18 +9,22 @@ import { projects } from "../content/projects";
 ---
 
 <Layout>
-  <Header />
-  <main>
-    <Hero />
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-          {projects.map((project) => <ProjectCard project={project} />)}
-        </div>
-      </div>
-    </section>
-    <About />
-  </main>
-  <Footer />
+    <Header />
+    <main>
+        <Hero />
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                    {
+                        projects.map((project) => (
+                            <ProjectCard project={project} />
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+        <About />
+    </main>
+    <Footer />
 </Layout>

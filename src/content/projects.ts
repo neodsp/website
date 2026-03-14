@@ -31,7 +31,7 @@ for channel in block.channels_mut() {
     github: "https://github.com/neodsp/audio-blocks",
     crates: "https://crates.io/crates/audio-blocks",
     docs: "https://docs.rs/audio-blocks",
-    stars: 11,
+    stars: 24,
   },
   {
     name: "audio-file",
@@ -56,12 +56,12 @@ println!("Samples: {}", audio.samples_interleaved.len());`,
     stars: 7,
   },
   {
-    name: "audio-io",
+    name: "audio-host",
     description:
       "Backend-agnostic library for audio I/O devices — one API for JUCE, CPAL, and RtAudio.",
     tags: ["multi-backend", "real-time", "callback API"],
     filename: "main.rs",
-    code: `use audio_io::*;
+    code: `use audio_host::*;
 
 let host = AudioHost::new()?;
 
@@ -77,9 +77,9 @@ host.start(
         output.copy_from_block(&input);
     },
 )?;`,
-    github: "https://github.com/neodsp/audio-io",
-    crates: "https://crates.io/crates/audio-io",
-    docs: "https://docs.rs/audio-io",
+    github: "https://github.com/neodsp/audio-host",
+    crates: "https://crates.io/crates/audio-host",
+    docs: "https://docs.rs/audio-host",
     stars: 1,
   },
   {
@@ -102,6 +102,6 @@ convolver.process(&input, &mut output)?;`,
     github: "https://github.com/neodsp/fft-convolver",
     crates: "https://crates.io/crates/fft-convolver",
     docs: "https://docs.rs/fft-convolver",
-    stars: 33,
+    stars: 35,
   },
 ];
