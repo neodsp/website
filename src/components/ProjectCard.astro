@@ -12,7 +12,6 @@ const { project } = Astro.props;
 <article class="project-card">
     <div class="project-header">
         <h3 class="project-name">{project.name}</h3>
-        <span class="project-stars">&#9733; {project.stars}</span>
     </div>
     <p class="project-desc">{project.description}</p>
     <div class="project-tags">
@@ -31,11 +30,7 @@ const { project } = Astro.props;
         <a href={project.github} target="_blank" rel="noopener noreferrer"
             >github</a
         >
-        <a href={project.crates} target="_blank" rel="noopener noreferrer"
-            >crates.io</a
-        >
-        <a href={project.docs} target="_blank" rel="noopener noreferrer"
-            >docs.rs</a
-        >
+        {project.crates && <a href={project.crates} target="_blank" rel="noopener noreferrer">crates.io</a>}
+        {project.docs && <a href={project.docs} target="_blank" rel="noopener noreferrer">docs.rs</a>}
     </div>
 </article>

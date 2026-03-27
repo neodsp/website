@@ -5,12 +5,38 @@ export interface Project {
   code: string;
   filename: string;
   github: string;
-  crates: string;
-  docs: string;
-  stars: number;
+  crates?: string;
+  docs?: string;
 }
 
 export const projects: Project[] = [
+  {
+    name: "audio-lab",
+    description:
+      "Offline audio research toolkit — generate test signals, run DSP experiments, and visualize results.",
+    tags: ["offline", "research", "plotting"],
+    filename: "main.rs",
+    code: `use audio_lab::{signal, plot};
+
+// Generate a logarithmic sweep and pink noise
+let sweep = signal::generate_sweep(
+    48_000,
+    20.0..20_000.0,
+    &signal::SweepConfig::default(),
+)?;
+let noise = signal::generate_noise(48_000, &signal::NoiseConfig {
+    spectrum: signal::Spectrum::Pink,
+    amplitude: 0.2,
+    ..Default::default()
+})?;
+
+// Mix, inspect, save, and play back
+let mixed = audio_lab::mix_time!(sweep, noise)?;
+plot::show_freq("spectrum", &mixed.into_freq(), Default::default())?;
+npy::write_npy_time(&mixed, "test.npy")?;
+playback::play(&mixed)?;`,
+    github: "https://github.com/neodsp/audio-lab",
+  },
   {
     name: "audio-blocks",
     description:
@@ -31,7 +57,6 @@ for channel in block.channels_mut() {
     github: "https://github.com/neodsp/audio-blocks",
     crates: "https://crates.io/crates/audio-blocks",
     docs: "https://docs.rs/audio-blocks",
-    stars: 24,
   },
   {
     name: "audio-file",
@@ -53,7 +78,6 @@ println!("Samples: {}", audio.samples_interleaved.len());`,
     github: "https://github.com/neodsp/audio-file",
     crates: "https://crates.io/crates/audio-file",
     docs: "https://docs.rs/audio-file",
-    stars: 7,
   },
   {
     name: "audio-host",
@@ -78,9 +102,33 @@ host.start(
     },
 )?;`,
     github: "https://github.com/neodsp/audio-host",
-    crates: "https://crates.io/crates/audio-host",
-    docs: "https://docs.rs/audio-host",
-    stars: 1,
+  },
+  {
+    name: "web-audio",
+    description:
+      "Web Audio API bindings for Rust — microphone input, device enumeration, and audio I/O in the browser.",
+    tags: ["wasm", "web", "async"],
+    filename: "main.rs",
+    code: `use web_audio::WebAudio;
+
+// Request microphone permission
+WebAudio::request_permission().await?;
+
+// Enumerate available devices
+let (inputs, outputs) = WebAudio::enumerate_devices().await?;
+
+// Create audio context and configure devices
+let mut audio = WebAudio::new().await?;
+audio.set_input_device(Some(inputs[0].device_id.clone()));
+audio.set_output_device(Some(outputs[0].device_id.clone())).await?;
+
+// Start processing — interleaved f32: [L0, R0, L1, R1, ...]
+audio.start(1024, 2, |input, output| {
+    output.copy_from_slice(input);
+}).await?;
+
+audio.stop()?;`,
+    github: "https://github.com/neodsp/web-audio",
   },
   {
     name: "fft-convolver",
@@ -102,6 +150,5 @@ convolver.process(&input, &mut output)?;`,
     github: "https://github.com/neodsp/fft-convolver",
     crates: "https://crates.io/crates/fft-convolver",
     docs: "https://docs.rs/fft-convolver",
-    stars: 35,
   },
 ];
